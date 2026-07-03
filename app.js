@@ -129,7 +129,10 @@ function renderHome() {
           <div class="hero-copy">
             <span class="hero-role">UI/UX Designer</span>
             <h1>Sara Chen</h1>
-            <p class="hero-statement">將複雜需求，轉化為清楚易用的產品體驗</p>
+            <p class="hero-statement">
+              將複雜需求<br>
+              轉化為清楚易用的產品體驗
+            </p>
             <p class="hero-summary">具備 4-5 年設計經驗，熟悉需求分析、User Flow、Wireframe、Prototype、UI/RWD、Design System 與跨部門協作。</p>
             <div class="hero-actions">
               <a class="button" href="#work">View Work <span aria-hidden="true">↓</span></a>
