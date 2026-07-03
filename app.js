@@ -124,8 +124,6 @@ function renderHome() {
       <a href="#experience" data-section="experience"><span>Experience</span></a>
     </nav>
     <section class="hero" id="intro">
-      <div class="hero-accent" aria-hidden="true"></div>
-      <img class="hero-photo" src="/assets/profile/main.webp" alt="Sara Chen 個人照片">
       <div class="container home-content-container">
         <div class="home-content hero-main-column">
           <div class="hero-copy">
@@ -137,6 +135,11 @@ function renderHome() {
               <a class="button" href="#work">View Work <span aria-hidden="true">↓</span></a>
               <a class="button secondary" href="/assets/resume/Hua_Resume.pdf" download="Hua_Resume.pdf">Resume ${downloadIcon}</a>
             </div>
+          </div>
+          <div class="hero-portrait">
+            <div class="hero-accent" aria-hidden="true"></div>
+            <div class="hero-circle" aria-hidden="true"></div>
+            <img class="hero-photo" src="/assets/profile/main.webp" alt="Sara Chen 個人照片">
           </div>
         </div>
       </div>
@@ -162,17 +165,17 @@ function renderHome() {
           <p class="lead">聚焦真實專案中的流程整理、介面規劃與視覺落地，呈現設計如何回應使用者、業務與開發條件。</p>
         </div>
         <div class="featured-list">${projects.slice(0, 3).map(featuredCard).join("")}</div>
-        <p style="text-align:center;margin:42px 0 0"><a class="button secondary" href="/portfolio/">View Portfolio <span aria-hidden="true">→</span></a></p>
+        <p style="text-align:center;margin:42px 0 0"><a class="button" href="/portfolio/">View Portfolio <span aria-hidden="true">→</span></a></p>
       </div></div>
     </section>
     <section class="section section-dark" id="capabilities">
       <div class="container home-content-container"><div class="home-content">
         <div class="section-head"><div><p class="eyebrow">Capabilities</p><h2>把設計推進到落地</h2></div><p class="lead">從需求釐清到交付驗收，兼顧使用體驗、視覺品質與團隊協作。</p></div>
         <div class="capability-grid">
-          <article class="capability"><img class="capability-illustration" src="/assets/capabilities/01.jpg" width="65" height="65" alt=""><span class="capability-number">01</span><h3>UX / Product Planning</h3><p>需求訪談、User Flow、Wireframe、功能流程與系統架構。</p></article>
-          <article class="capability"><img class="capability-illustration" src="/assets/capabilities/02.jpg" width="65" height="65" alt=""><span class="capability-number">02</span><h3>UI / RWD Design</h3><p>介面設計、Prototype、Design System 與元件化交付。</p></article>
-          <article class="capability"><img class="capability-illustration" src="/assets/capabilities/03.png" width="65" height="65" alt=""><span class="capability-number">03</span><h3>Collaboration</h3><p>與 PM、工程師及跨部門角色協作，支援測試、驗收與文件。</p></article>
-          <article class="capability"><img class="capability-illustration" src="/assets/capabilities/04.jpg" width="65" height="65" alt=""><span class="capability-number">04</span><h3>Visual Communication</h3><p>品牌視覺、活動主視覺、數位廣告、EDM 與印刷物。</p></article>
+          <article class="capability"><img class="capability-illustration" src="/assets/capabilities/01.png" width="200" height="120" alt=""><span class="capability-number">01</span><h3>UX / Product Planning</h3><p>需求訪談、User Flow、Wireframe、功能流程與系統架構。</p></article>
+          <article class="capability"><img class="capability-illustration" src="/assets/capabilities/02.png" width="200" height="120" alt=""><span class="capability-number">02</span><h3>UI / RWD Design</h3><p>介面設計、Prototype、Design System 與元件化交付。</p></article>
+          <article class="capability"><img class="capability-illustration" src="/assets/capabilities/03.png" width="200" height="120" alt=""><span class="capability-number">03</span><h3>Collaboration</h3><p>與 PM、工程師及跨部門角色協作，支援測試、驗收與文件。</p></article>
+          <article class="capability"><img class="capability-illustration" src="/assets/capabilities/04.png" width="200" height="120" alt=""><span class="capability-number">04</span><h3>Visual Communication</h3><p>品牌視覺、活動主視覺、數位廣告、EDM 與印刷物。</p></article>
         </div>
       </div></div>
     </section>
@@ -255,7 +258,7 @@ function campaignPanel() {
 
 function renderPortfolio() {
   document.title = "Portfolio | Sara Chen";
-  main.innerHTML = `<section class="portfolio-hero"><div class="container"><p class="eyebrow">Portfolio</p><h1>作品集</h1><p class="lead">從產品與系統介面，到品牌視覺與活動設計。以 UI/UX 為主軸，也保留完整的視覺溝通廣度。</p></div></section>
+  main.innerHTML = `<section class="portfolio-hero"><div class="container"><p class="eyebrow">Portfolio</p><h1>設計案例</h1><p class="lead">從產品與系統介面設計，到品牌視覺與活動設計，以 UI/UX 思維梳理需求與體驗，同時保留視覺溝通的廣度與完整性。</p></div></section>
   <div class="tabs"><div class="container tab-list" role="tablist" aria-label="作品分類"><button class="tab-button" role="tab" aria-selected="true" data-tab="uiux">UI/UX</button><button class="tab-button" role="tab" aria-selected="false" data-tab="visual">Visual Design</button><button class="tab-button" role="tab" aria-selected="false" data-tab="campaign">Campaign Design</button></div></div>
   <section class="portfolio-panel"><div class="container" id="portfolio-content"><div class="section-head"><div><p class="eyebrow">UI/UX</p><h2>產品與系統介面</h2></div><p class="lead">8 個真實專案，涵蓋交通公共服務、資料平台、企業官網、招募與金融科技。</p></div><div class="work-grid">${projects.map(workCard).join("")}</div></div></section>`;
 
