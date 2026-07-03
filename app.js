@@ -100,6 +100,28 @@ function renderHeaderState() {
   if (path === "/portfolio" || path === "/work/pingtung-traffic-monitoring") portfolioLink.setAttribute("aria-current", "page");
 }
 
+function bindNavbarScroll() {
+  const header = document.querySelector(".site-header");
+  const mobileQuery = window.matchMedia("(max-width: 767px)");
+  let frameRequested = false;
+
+  const updateHeader = () => {
+    header.classList.toggle("is-scrolled", !mobileQuery.matches && window.scrollY > 80);
+    frameRequested = false;
+  };
+
+  const requestUpdate = () => {
+    if (frameRequested) return;
+    frameRequested = true;
+    window.requestAnimationFrame(updateHeader);
+  };
+
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate);
+  mobileQuery.addEventListener?.("change", updateHeader);
+  updateHeader();
+}
+
 function featuredCard(project, index) {
   return `<article class="featured-card">
     <a class="featured-media" href="/work/${project.slug}/" aria-label="查看 ${project.title}"><img src="${project.image}" alt="${project.title} 封面" loading="lazy"></a>
@@ -133,7 +155,7 @@ function renderHome() {
               將複雜需求<br>
               轉化為清楚易用的產品體驗
             </p>
-            <p class="hero-summary">具備 4-5 年設計經驗，熟悉需求分析、User Flow、Wireframe、Prototype、UI/RWD、Design System 與跨部門協作。</p>
+            <p class="hero-summary">具備 4 年以上產品設計經驗，擅長梳理複雜需求、規劃使用流程與打造一致性的介面體驗，協助產品從概念逐步落地為清楚易用的數位服務。</p>
             <div class="hero-actions">
               <a class="button" href="#work">View Work <span aria-hidden="true">↓</span></a>
               <a class="button secondary" href="/assets/resume/Hua_Resume.pdf" download="Hua_Resume.pdf">Resume ${downloadIcon}</a>
@@ -191,6 +213,67 @@ function renderHome() {
     <section class="contact-band" id="contact"><div class="container home-content-container"><div class="home-content contact-inner"><h2>一起把複雜問題，整理成清楚可用的產品。</h2><div class="contact-actions"><a class="button" href="mailto:sara113985@gmail.com">Contact Me ${mailIcon}</a><a class="button secondary" href="/assets/resume/Hua_Resume.pdf" download="Hua_Resume.pdf">Resume ${downloadIcon}</a></div></div></div></section>
     <a class="back-to-top" href="#intro" aria-label="回到頁首" title="回到頁首">${arrowUpIcon}</a>`;
   bindHomeSectionNav();
+  bindHeroAnimations();
+}
+
+function bindHeroAnimations() {
+  const hero = document.querySelector(".hero");
+  const statement = hero?.querySelector(".hero-statement");
+  if (!hero || !statement) return;
+
+  const lines = statement.innerText.split("\n").map(line => line.trim()).filter(Boolean);
+  const fragment = document.createDocumentFragment();
+  const characters = [];
+  let characterIndex = 0;
+  let lastCharacter = null;
+
+  statement.setAttribute("aria-label", lines.join(" "));
+  lines.forEach((line, lineIndex) => {
+    if (lineIndex > 0) fragment.append(document.createElement("br"));
+
+    const lineElement = document.createElement("span");
+    lineElement.className = "hero-type-line";
+    lineElement.setAttribute("aria-hidden", "true");
+
+    Array.from(line).forEach(character => {
+      const characterElement = document.createElement("span");
+      characterElement.className = "hero-type-character";
+      characterElement.style.setProperty("--character-index", characterIndex);
+      characterElement.textContent = character;
+      lineElement.append(characterElement);
+      characters.push(characterElement);
+      lastCharacter = characterElement;
+      characterIndex += 1;
+    });
+
+    fragment.append(lineElement);
+  });
+
+  statement.replaceChildren(fragment);
+
+  const moveCursor = character => {
+    characters.forEach(item => item.classList.toggle("is-typing-cursor", item === character));
+  };
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (lastCharacter) moveCursor(lastCharacter);
+    return;
+  }
+
+  characters.forEach(character => character.addEventListener("animationstart", () => moveCursor(character), { once: true }));
+  hero.classList.add("hero-motion-ready");
+
+  let completed = false;
+  const completeTyping = () => {
+    if (completed) return;
+    completed = true;
+    if (lastCharacter) moveCursor(lastCharacter);
+    hero.classList.add("hero-typing-complete");
+    window.setTimeout(() => hero.classList.remove("hero-motion-ready", "hero-typing-complete"), 750);
+  };
+
+  lastCharacter?.addEventListener("animationend", completeTyping, { once: true });
+  window.setTimeout(completeTyping, 2100);
 }
 
 function bindHomeSectionNav() {
@@ -351,4 +434,5 @@ else if (path.startsWith("/work/")) {
   else { main.innerHTML = `<section class="portfolio-hero"><div class="container"><h1>找不到此案例</h1><a class="button" href="/portfolio/">返回 Portfolio</a></div></section>`; }
 } else renderHome();
 renderHeaderState();
+bindNavbarScroll();
 bindRevealAnimations();
